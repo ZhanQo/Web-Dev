@@ -1,0 +1,95 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: white;
+    color:black;
+
+}
+
+.header{
+    background-color: black;
+    color:lightgrey;
+    padding: 1rem;
+    text-align: center;
+
+}
+
+.container{
+    max-width: 500px;
+    margin: 2rem auto;
+    background-color: white;
+    padding:1.5rem;
+    border-radius: 10px;
+}
+
+.toform {
+    margin-bottom:1.5rem;
+   
+}
+
+.toform label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight:bold;
+   font-size:2rem;
+
+}
+
+.input{
+    display: flex;
+    gap:1rem;
+    
+}
+
+.input input {
+    flex:1;
+    padding:0.5rem;
+    font-size:1rem;
+    
+
+}
+
+.input button {
+    padding:0.5rem 1rem;
+    font-size:1rem;
+    cursor: pointer;
+ 
+    
+}
+
+.tolist {
+    list-style:none;
+}
+
+.toitem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.toleft {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.totext.done {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.3rem 0.6rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
