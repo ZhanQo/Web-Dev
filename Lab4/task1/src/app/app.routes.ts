@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
-import { Ex1Component } from './ex1/ex1.component';
-import { Ex2Component } from './ex2/ex2.component';
-import { Ex3Component } from './ex3/ex3.component';
-import { Ex4Component } from './ex4/ex4.component';
-import { Ex5Component } from './ex5/ex5.component';
-import { Ex6Component } from './ex6/ex6.component';
-import { Ex7Component } from './ex7/ex7.component';
-import { Ex8Component } from './ex8/ex8.component';
-import { Ex9Component } from './ex9/ex9.component';
+import { Ex1Component } from './examples/ex1/ex1.component';
+import { Ex2Component } from './examples/ex2/ex2.component';
+import { Ex3Component } from './examples/ex3/ex3.component';
+import { Ex4Component } from './examples/ex4/ex4.component';
+import { Ex5Component } from './examples/ex5/ex5.component';
+import { Ex6Component } from './examples/ex6/ex6.component';
+import { Ex7Component } from './examples/ex7/ex7.component';
+import { Ex8Component } from './examples/ex8/ex8.component';
+import { Ex9Component } from './examples/ex9/ex9.component';
 
 
 
