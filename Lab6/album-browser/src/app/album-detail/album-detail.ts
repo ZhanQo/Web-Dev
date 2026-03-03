@@ -4,7 +4,7 @@ import { AlbumService } from '../services/album.service';
 import { Album } from '../models/album';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-album-detail',
   standalone: true,
@@ -25,7 +25,8 @@ export class AlbumDetail implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private albumService: AlbumService
+    private albumService: AlbumService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +37,12 @@ export class AlbumDetail implements OnInit {
         this.album = data;
         this.editedTitle = data.title;
         this.loading = false;
+        this.cdr.detectChanges(); // ✅ заставляем обновить UI
       },
       error: () => {
         this.error = 'Failed to load album.';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -56,10 +59,12 @@ export class AlbumDetail implements OnInit {
         this.album = saved;
         this.editedTitle = saved.title;
         this.saving = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         alert('Save failed (API may be unreachable).');
         this.saving = false;
+        this.cdr.detectChanges();
       }
     });
   }

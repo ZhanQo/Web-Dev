@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { AlbumService } from '../services/album.service';
-import { Album } from '../models/album';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+import { AlbumService } from '../services/album.service';
+import { Album } from '../models/album';
 
 @Component({
   selector: 'app-albums',
   standalone: true,
-  imports: [CommonModule , RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './albums.html',
   styleUrls: ['./albums.css']
 })
@@ -17,29 +17,27 @@ export class Albums implements OnInit {
   loading = true;
   error = '';
 
-  constructor(private albumService: AlbumService) {}
+  constructor(private albumService: AlbumService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.albumService.getAlbums().subscribe({
       next: (data) => {
         this.albums = data;
         this.loading = false;
+        this.cdr.detectChanges(); // ✅ заставляем обновить UI
       },
       error: () => {
         this.error = 'Failed to load albums.';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
 
   deleteAlbum(id: number): void {
-    this.albumService.deleteAlbum(id).subscribe({
-      next: () => {
-        this.albums = this.albums.filter(a => a.id !== id); // UI update locally
-      },
-      error: () => {
-        alert('Delete failed (API may be unreachable).');
-      }
+    this.albumService.deleteAlbum(id).subscribe(() => {
+      this.albums = this.albums.filter(a => a.id !== id);
+      this.cdr.detectChanges();
     });
   }
 }
