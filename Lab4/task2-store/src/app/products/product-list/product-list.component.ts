@@ -7,7 +7,6 @@ import { ProductCardComponent } from '../product-card/product-card.component';
   standalone: true,
   imports: [ProductCardComponent],
   template: `
-    <h2 class="title">Catalog</h2>
 
     <section class="grid">
       @for (p of products; track p.id) {
@@ -34,6 +33,10 @@ import { ProductCardComponent } from '../product-card/product-card.component';
   `]
 })
 export class ProductListComponent {
+
+  priceFilter: 'all' | 'low' | 'mid' | 'high' = 'all';
+
+
   products: Product[] = [
     {
       id: 1,

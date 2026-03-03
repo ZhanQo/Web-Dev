@@ -1,0 +1,21 @@
+.list { list-style: none; padding: 0; margin: 0; }
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.link { text-decoration: none; color: #222; display: flex; gap: 10px; }
+.id { font-weight: 700; }
+.title { opacity: 0.9; }
+.danger {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: transparent;
+  cursor: pointer;
+}
+.info { padding: 10px 0; opacity: 0.8; }
+.error { padding: 10px 0; color: #b00020; }

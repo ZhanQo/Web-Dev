@@ -1,0 +1,23 @@
+<h2>Album Detail</h2>
+
+<div *ngIf="loading" class="info">Loading album...</div>
+<div *ngIf="!loading && error" class="error">{{ error }}</div>
+
+<div *ngIf="!loading && !error && album" class="card">
+  <p><b>ID:</b> {{ album.id }}</p>
+  <p><b>User ID:</b> {{ album.userId }}</p>
+
+  <label class="label">
+    <span><b>Title:</b></span>
+    <input [(ngModel)]="editedTitle" class="input" />
+  </label>
+
+  <div class="actions">
+    <button class="btn" (click)="save()" [disabled]="saving || editedTitle.trim().length === 0">
+      {{ saving ? 'Saving...' : 'Save' }}
+    </button>
+
+    <button class="btn" (click)="goPhotos()">View Photos</button>
+    <button class="btn" (click)="backToAlbums()">Back</button>
+  </div>
+</div>
