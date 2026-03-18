@@ -22,9 +22,10 @@ export class Albums implements OnInit {
   ngOnInit(): void {
     this.albumService.getAlbums().subscribe({
       next: (data) => {
+        const deleted = JSON.parse(localStorage.getItem('deletedAlbums') || '[]') as number[];
         this.albums = data;
         this.loading = false;
-        this.cdr.detectChanges(); // ✅ заставляем обновить UI
+        this.cdr.detectChanges(); 
       },
       error: () => {
         this.error = 'Failed to load albums.';
@@ -35,9 +36,17 @@ export class Albums implements OnInit {
   }
 
   deleteAlbum(id: number): void {
-    this.albumService.deleteAlbum(id).subscribe(() => {
+    this.albumService.deleteAlbum(id).subscribe({
+      next: () => {
       this.albums = this.albums.filter(a => a.id !== id);
-      this.cdr.detectChanges();
+      const deleted = JSON.parse(localStorage.getItem('deletedAlbums') || '[]') as number[]; 
+      if(!deleted.includes(id)) deleted.push(id);
+      localStorage.setItem('deletedAlbums', JSON.stringify(deleted));
+      
+      },
+      error: () => {
+        alert('Failed to delete album.');
+      }
     });
   }
 }

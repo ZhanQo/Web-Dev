@@ -37,7 +37,7 @@ export class AlbumDetail implements OnInit {
         this.album = data;
         this.editedTitle = data.title;
         this.loading = false;
-        this.cdr.detectChanges(); // ✅ заставляем обновить UI
+        this.cdr.detectChanges(); 
       },
       error: () => {
         this.error = 'Failed to load album.';
@@ -55,7 +55,6 @@ export class AlbumDetail implements OnInit {
 
     this.albumService.updateAlbum(updated).subscribe({
       next: (saved) => {
-        // JSONPlaceholder не сохраняет реально, но UI обновляем локально
         this.album = saved;
         this.editedTitle = saved.title;
         this.saving = false;

@@ -32,7 +32,7 @@ export class AlbumPhotos implements OnInit {
       next: (data) => {
         this.photos = data;
         this.loading = false;
-        this.cdr.detectChanges(); // ✅ заставляем обновить UI
+        this.cdr.detectChanges(); 
       },
       error: () => {
         this.error = 'Failed to load photos.';
