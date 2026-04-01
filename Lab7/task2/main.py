@@ -14,7 +14,7 @@ def main():
         print(item.use())
         print("-" * 40)
 
-    print("Polymorphism demonstration:")
+    
     for item in products:
         print(f"{item.name}: {item.use()}")
 
