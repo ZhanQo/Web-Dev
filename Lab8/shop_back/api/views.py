@@ -1,67 +1,39 @@
 from django.http import JsonResponse
 from .models import Product, Category
+import json
 
+def products(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
 
-def products_list(request):
-    products = Product.objects.all()
-    data = [
-        {
-            "id": p.id,
-            "name": p.name,
-            "price": p.price,
-            "description": p.description,
-            "count": p.count,
-            "is_active": p.is_active,
-            "category": p.category.id
-        }
-        for p in products
-    ]
-    return JsonResponse(data, safe=False)
+        name = data.get('name')
+        price = data.get('price')
 
+        
+        if Product.objects.filter(name=name).exists():
+            return JsonResponse({
+                "error": "Product with this name already exists",
+                "data": data
+            }, status=400)
 
-def product_detail(request, id):
-    try:
-        p = Product.objects.get(id=id)
-        data = {
-            "id": p.id,
-            "name": p.name,
-            "price": p.price,
-            "description": p.description,
-            "count": p.count,
-            "is_active": p.is_active,
-            "category": p.category.id
-        }
-        return JsonResponse(data)
-    except Product.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
+        
+        if price <= 0:
+            return JsonResponse({
+                "error": "Price must be greater than 0",
+                "data": data
+            }, status=400)
 
+        
+        product = Product.objects.create(
+            name=name,
+            price=price,
+            description=data.get('description'),
+            count=data.get('count'),
+            is_active=data.get('is_active'),
+            category_id=data.get('category')
+        )
 
-def categories_list(request):
-    categories = Category.objects.all()
-    data = [{"id": c.id, "name": c.name} for c in categories]
-    return JsonResponse(data, safe=False)
-
-
-def category_detail(request, id):
-    try:
-        c = Category.objects.get(id=id)
-        data = {"id": c.id, "name": c.name}
-        return JsonResponse(data)
-    except Category.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
-
-
-def category_products(request, id):
-    products = Product.objects.filter(category_id=id)
-    data = [
-        {
-            "id": p.id,
-            "name": p.name,
-            "price": p.price,
-            "description": p.description,
-            "count": p.count,
-            "is_active": p.is_active
-        }
-        for p in products
-    ]
-    return JsonResponse(data, safe=False)
+        return JsonResponse({
+            "message": "Product created",
+            "id": product.id
+        })
